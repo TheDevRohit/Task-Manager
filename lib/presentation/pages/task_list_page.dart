@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager/bloc/task/task_bloc.dart';
 import 'package:task_manager/bloc/task/task_event.dart';
 import 'package:task_manager/bloc/task/task_state.dart';
+import 'package:task_manager/data/cubit/theme_cubit.dart';
 import 'package:task_manager/data/models/task/task_model.dart';
 import 'package:task_manager/presentation/pages/task_form.dart';
 import 'package:task_manager/presentation/widgets/no_data.dart';
@@ -14,7 +15,6 @@ class TaskListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -27,23 +27,33 @@ class TaskListScreen extends StatelessWidget {
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZRzCOTmTpG-0zKoHeoNr8J-LeI_ihfZO3Q&s'), // user avatar
           ),
         ),
-        title: const Column(
+        title:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Hello, Rohit 👋",
+            const Text("Hello, Rohit 👋",
                 style: TextStyle(fontSize: 14, color: Colors.grey)),
             Text("Your Dashboard",
                 style: TextStyle(
+                  color:  Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.black)),
+            )),
           ],
         ),
         actions: [
-         
+          IconButton(
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+                  color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,
+            ),
+            onPressed: () {
+              context.read<ThemeCubit>().toggleTheme();
+            },
+          ),
           filterMenuWidget(context),
           const SizedBox(width: 8),
-
         ],
       ),
       body: BlocBuilder<TaskBloc, TaskState>(
@@ -177,7 +187,7 @@ class TaskListScreen extends StatelessWidget {
                       style: TextStyle(
                           color: currentFilter == null
                               ? Colors.blue
-                              : Colors.black)),
+                              :  Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,)),
                 ],
               ),
             ),
@@ -195,7 +205,7 @@ class TaskListScreen extends StatelessWidget {
                       style: TextStyle(
                           color: currentFilter == TaskStatus.todo
                               ? Colors.orange
-                              : Colors.black)),
+                              :  Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,)),
                 ],
               ),
             ),
@@ -212,7 +222,7 @@ class TaskListScreen extends StatelessWidget {
                       style: TextStyle(
                           color: currentFilter == TaskStatus.inProgress
                               ? Colors.blue
-                              : Colors.black)),
+                              :  Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,)),
                 ],
               ),
             ),
@@ -229,12 +239,12 @@ class TaskListScreen extends StatelessWidget {
                       style: TextStyle(
                           color: currentFilter == TaskStatus.done
                               ? Colors.green
-                              : Colors.black)),
+                              : Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,)),
                 ],
               ),
             ),
           ],
-          icon: const Icon(Icons.filter_alt_outlined),
+          icon:  Icon(Icons.filter_alt_outlined, color:Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black  ,),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         );

@@ -48,7 +48,6 @@ class AddEditTaskScreenState extends State<AddEditTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text(
           widget.task == null ? 'Add New Task' : 'Edit Task',
@@ -57,7 +56,6 @@ class AddEditTaskScreenState extends State<AddEditTaskScreen> {
             color: Colors.blue[700],
           ),
         ),
-        backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.blue[700]),
       ),
